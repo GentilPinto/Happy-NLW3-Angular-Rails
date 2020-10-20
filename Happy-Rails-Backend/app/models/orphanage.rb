@@ -1,0 +1,2 @@
+class Orphanage < ApplicationRecord
+end

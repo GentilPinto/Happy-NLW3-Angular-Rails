@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  latitude: 9.99
+  longitude: 9.99
+  about: MyText
+  instructions: MyText
+  opening_hours: MyString
+  open_on_weekends: false
+
+two:
+  name: MyString
+  latitude: 9.99
+  longitude: 9.99
+  about: MyText
+  instructions: MyText
+  opening_hours: MyString
+  open_on_weekends: false
