@@ -13,12 +13,21 @@ export class OrphanagesMapComponent implements OnInit {
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
     ],
     zoom: 5,
-    center: latLng(-8.9194496, 13.203013)
+    center: latLng(0, 0)
   };
 
   constructor() { }
 
   ngOnInit(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setPosition);
+    } else {
+      this._options.center = latLng(-8.9179403, 13.200951799999999);
+    }
+  }
+
+  public setPosition(position): void {
+    this._options.center = latLng(position.coords.latitude, position.coords.longitude);
   }
 
   public get options(): object {
