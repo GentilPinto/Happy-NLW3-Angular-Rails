@@ -1,0 +1,27 @@
+<div id="page-map">
+    <aside>
+        <header>
+            <img src="assets/images/map-marker.svg" alt="Happy">
+
+            <h2>Escolha um orfanato no mapa</h2>
+            <p>Muitas crianças estão esperando a sua visita :)</p>
+        </header>
+
+        <footer>
+            <strong>Rio do Sul</strong>
+            <span>Santa Catarina</span>
+        </footer>
+    </aside>
+
+    <a routerLink="/" class="back-to-home">
+        <mat-icon>
+            arrow_back
+        </mat-icon>
+    </a>
+    <a routerLink="/" class="create-orphanage">
+        <mat-icon>
+            add
+        </mat-icon>
+    </a>
+    <div class="map" leaflet [leafletOptions]="options"></div>
+</div>
