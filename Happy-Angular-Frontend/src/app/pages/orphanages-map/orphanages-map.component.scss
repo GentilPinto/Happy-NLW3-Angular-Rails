@@ -3,10 +3,9 @@
     height: 100vh;
     position: relative;
     display: flex;
-    // overflow: hidden;
     aside {
         width: 440px;
-        background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
+        background: var(--primary-color);
         padding: 80px;
         display: flex;
         flex-direction: column;
@@ -32,7 +31,7 @@
     }
     .create-orphanage {
         position: absolute;
-        right: 40px;
+        right: 2vw;
         bottom: 40px;
         width: 64px;
         height: 64px;

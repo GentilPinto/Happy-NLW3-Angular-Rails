@@ -42,6 +42,10 @@
 //     font-weight: 400;
 //     src: url('assets/fonts/Nunito/Nunito-Regular.ttf') format('woff2');
 // }
+:root {
+    --primary-color: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
+}
+
 * {
     margin: 0;
     padding: 0;
