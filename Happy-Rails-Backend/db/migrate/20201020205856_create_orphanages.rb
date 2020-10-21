@@ -7,7 +7,7 @@ class CreateOrphanages < ActiveRecord::Migration[6.0]
       t.text :about
       t.text :instructions
       t.string :opening_hours
-      t.boolean :open_on_weekends
+      t.boolean :open_on_weekends, default: false
 
       t.timestamps
     end

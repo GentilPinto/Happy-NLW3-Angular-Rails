@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_10_20_205856) do
     t.text "about"
     t.text "instructions"
     t.string "opening_hours"
-    t.boolean "open_on_weekends"
+    t.boolean "open_on_weekends", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

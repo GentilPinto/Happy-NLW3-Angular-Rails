@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'api/index#index', defaults: {format: :json}
   namespace :api, defaults: {format: :json} do
     namespace :v1, defaults: {format: :json} do
+      resources :orphanage, only: [:index, :create, :show, :update, :destroy]
     end
   end
 end
