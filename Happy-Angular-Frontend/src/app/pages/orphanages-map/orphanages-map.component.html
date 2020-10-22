@@ -23,5 +23,6 @@
             add
         </mat-icon>
     </a>
-    <div class="map" leaflet [leafletOptions]="options"></div>
+    <div class="map" leaflet [leafletOptions]="options" [leafletLayer]="layer" (leafletMapReady)="onMapReady($event)">
+    </div>
 </div>
