@@ -9,30 +9,33 @@
 
 /* USED ONLY WHEN NO HAVE INTERNET */
 
-// @font-face {
-//     font-family: 'Material Icons';
-//     font-style: normal;
-//     font-weight: 400;
-//     src: url('assets/fonts/material/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
-// }
-// .material-icons {
-//     font-family: 'Material Icons';
-//     font-weight: normal;
-//     font-style: normal;
-//     font-size: 24px;
-//     line-height: 1;
-//     letter-spacing: normal;
-//     text-transform: none;
-//     display: inline-block;
-//     white-space: nowrap;
-//     word-wrap: normal;
-//     direction: ltr;
-//     -webkit-font-feature-settings: 'liga';
-//     -webkit-font-smoothing: antialiased;
-// }
-// mat-icon {
-//     font-family: 'Material Icons' !important;
-// }
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/fonts/material/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+mat-icon {
+    font-family: 'Material Icons' !important;
+}
+
 
 /* END MATERIAL ICONS CSS */
 
@@ -42,7 +45,7 @@
 //     font-weight: 400;
 //     src: url('assets/fonts/Nunito/Nunito-Regular.ttf') format('woff2');
 // }
-:root {
+ :root {
     --primary-color: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
 }
 
@@ -70,4 +73,35 @@ textarea {
 
 a {
     text-decoration: none;
+}
+
+.popup-map {
+    .leaflet-popup-content-wrapper {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        box-shadow: none;
+    }
+    .leaflet-popup-content {
+        color: #0089A5;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        a {
+            width: 40px;
+            height: 40px;
+            background: #15c3d6;
+            box-shadow: 17.2868px 27.6589px 41.4884px rgba(23, 142, 166, 0.16);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+.leaflet-popup-tip-container {
+    .leaflet-popup-tip {
+        display: none;
+    }
 }

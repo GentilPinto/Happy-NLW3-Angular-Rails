@@ -29,6 +29,11 @@
             }
         }
     }
+    .leaflet-container {
+        z-index: 5;
+        height: 100%;
+        width: 100%;
+    }
     .create-orphanage {
         position: absolute;
         right: 2vw;
@@ -74,10 +79,5 @@
                 size: 26px;
             }
         }
-    }
-    .leaflet-container {
-        z-index: 5;
-        height: 100%;
-        width: 100%;
     }
 }

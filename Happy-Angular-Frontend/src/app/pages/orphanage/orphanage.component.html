@@ -1,0 +1,55 @@
+<div id="page-orphanage">
+    <app-sidebar></app-sidebar>
+    <main>
+        <div class="orphanage-details">
+            <img src="assets/images/landing.svg" alt="something">
+
+            <div class="images">
+                <button class="active" type="button">
+                    <img src="assets/images/landing.svg" alt="something">
+                </button>
+                <button type="button">
+                    <img src="assets/images/map-marker.svg" alt="something">
+                </button>
+            </div>
+
+            <div class="orphanage-details-content">
+                <h1>Orfanato Gentil é Deus!</h1>
+                <p>Orfanato do Todo Poderoso Gentil!</p>
+
+                <div class="map-container">
+                    <div class="map" leaflet [leafletOptions]="options"></div>
+
+                    <footer>
+                        <a target="_blank" rel="noopener noreferrer" href="#">Ver rotas no google maps</a>
+                    </footer>
+                </div>
+
+                <hr>
+
+                <h2>Instruções para visita</h2>
+                <p>Vem pela sombra!</p>
+
+                <div class="open-details">
+                    <div class="hour">
+                        <mat-icon style="size: 32;color: #15B6D6;">
+                            clock
+                        </mat-icon> Segunda à Sexta <br> 18h ás 19h
+                    </div>
+
+                    <div class="hour">
+                        <mat-icon style="size: 32;color: #39CC83;">
+                            info
+                        </mat-icon> Atendemos <br> aos finais de semana
+                    </div>
+                </div>
+
+                <button type="button" class="contact-button">
+                    <mat-icon style="size: 32;color: #FFF;">
+                        whatsapp
+                    </mat-icon> Entrar em contacto
+                </button>
+            </div>
+        </div>
+    </main>
+</div>

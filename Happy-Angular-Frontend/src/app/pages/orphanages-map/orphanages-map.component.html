@@ -18,11 +18,12 @@
             arrow_back
         </mat-icon>
     </a>
-    <a routerLink="/" class="create-orphanage">
+    <a routerLink="/orphanages/create" class="create-orphanage">
         <mat-icon>
             add
         </mat-icon>
     </a>
-    <div class="map" leaflet [leafletOptions]="options" [leafletLayer]="layer" (leafletMapReady)="onMapReady($event)">
+    <!-- [leafletLayer]="layer" -->
+    <div class="map" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)">
     </div>
 </div>

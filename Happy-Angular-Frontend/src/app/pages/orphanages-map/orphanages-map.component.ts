@@ -3,9 +3,11 @@ import {
     latLng,
     tileLayer,
     marker,
-    icon
+    icon,
+    popup as LeafletPopup
 } from 'leaflet';
 import * as Leaflet from 'leaflet';
+import { responsivePopup } from 'leaflet-responsive-popup';
 
 @Component({
     selector: 'app-orphanages-map',
@@ -14,9 +16,9 @@ import * as Leaflet from 'leaflet';
 })
 export class OrphanagesMapComponent implements OnInit {
 
-    private _myCurrentPosition = {
-        latitude: null,
-        longitude: null
+    private _homeCoords = {
+        latitude: -8.9179403,
+        longitude: 13.200951799999999
     };
 
     private _map: Leaflet.Map;
@@ -26,16 +28,17 @@ export class OrphanagesMapComponent implements OnInit {
             tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '' })
         ],
         zoom: 15,
-        center: latLng(0, 0)
+        center: latLng(this._homeCoords.latitude, this._homeCoords.longitude)
     };
 
-    layer = marker([-8.9179403, 13.200951799999999], {
-        icon: icon({
+    private _markerIcon = {
+        icon: Leaflet.icon({
+            iconUrl: 'assets/images/map-marker.svg',
             iconSize: [58, 68],
             iconAnchor: [29, 68],
-            iconUrl: 'assets/images/map-marker.svg'
+            popupAnchor: [0, -60]
         })
-    });
+    };
 
     constructor() { }
 
@@ -45,30 +48,55 @@ export class OrphanagesMapComponent implements OnInit {
         return this._options;
     }
 
-    public async onMapReady(map: Leaflet.Map): Promise<void> {
-        await this.getMyCurrentPosition().then((result) => {
-            this._myCurrentPosition.latitude = result.coords.latitude;
-            this._myCurrentPosition.longitude = result.coords.longitude;
-        });
-        this._map = map.panTo(
-            new Leaflet.LatLng(
-                this._myCurrentPosition.latitude,
-                this._myCurrentPosition.longitude
-            )
+    public initMarkers(): void {
+        const popup = LeafletPopup({
+            closeButton: false,
+            maxWidth: 240,
+            minWidth: 240,
+            className: 'popup-map'
+        }).setContent(
+            `
+                Lar do Gentil <a _ngcontent-kjk-c1="" routerlink="/orphanage/1" ng-reflect-router-link="/orphanage/1" href="/orphanage/1">
+                    <mat-icon style="size: 20px; color: #FFF">
+                        arrow_forward
+                    </mat-icon>
+                </a>
+            `
         );
+        Leaflet.marker([this._homeCoords.latitude, this._homeCoords.longitude], this._markerIcon)
+            .addTo(this._map)
+            .bindPopup(popup);
     }
 
-    public getMyCurrentPosition(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-                (result) => {
-                    resolve(result);
-                },
-                (error) => {
-                    console.log('Error: ', error);
-                    reject(error);
-                }
-            );
-        });
+    public onMapReady(map: Leaflet.Map): void {
+        this._map = map;
+        this.initMarkers();
     }
+
+    //     public async onMapReady(map: Leaflet.Map): Promise < void> {
+    //     await this.getMyCurrentPosition().then((result) => {
+    //         this._myCurrentPosition.latitude = result.coords.latitude;
+    //         this._myCurrentPosition.longitude = result.coords.longitude;
+    //     });
+    //     this._map = map.panTo(
+    //         new Leaflet.LatLng(
+    //             this._myCurrentPosition.latitude,
+    //             this._myCurrentPosition.longitude
+    //         )
+    //     );
+    // }
+
+    // public getMyCurrentPosition(): Promise < any > {
+    //     return new Promise((resolve, reject) => {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (result) => {
+    //                 resolve(result);
+    //             },
+    //             (error) => {
+    //                 console.log('Error: ', error);
+    //                 reject(error);
+    //             }
+    //         );
+    //     });
+    // }
 }
