@@ -1,4 +1,4 @@
-class Api::V1::OrphanageController < ApplicationController
+class Api::V1::OrphanagesController < ApplicationController
     before_action :set_orphanage, only: [:show, :update, :destroy]
 
     def index
