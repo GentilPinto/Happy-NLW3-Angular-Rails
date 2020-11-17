@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
+import {
+    Title,
+    BrowserModule
+} from '@angular/platform-browser';
+import {
+    FormsModule,
+    ReactiveFormsModule
+} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /** Material */
@@ -18,24 +25,26 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { OrphanageComponent } from './pages/orphanage/orphanage.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    OrphanagesMapComponent,
-    CreateOrphanageComponent,
-    SidebarComponent,
-    OrphanageComponent
-  ],
-  imports: [
-    BrowserModule,
-    MatIconModule,
-    LeafletModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
-  providers: [
-    Title
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        OrphanagesMapComponent,
+        CreateOrphanageComponent,
+        SidebarComponent,
+        OrphanageComponent
+    ],
+    imports: [
+        FormsModule,
+        BrowserModule,
+        MatIconModule,
+        LeafletModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule
+    ],
+    providers: [
+        Title
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

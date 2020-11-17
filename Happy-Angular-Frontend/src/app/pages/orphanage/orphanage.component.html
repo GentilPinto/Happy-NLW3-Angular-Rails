@@ -2,53 +2,64 @@
     <app-sidebar></app-sidebar>
     <main>
         <div class="orphanage-details">
-            <img src="assets/images/landing.svg" alt="something">
+            <img src="{{ orphanageImages[activeImageIndex].url }}" alt="{{ orphanage.name }}">
 
             <div class="images">
-                <button class="active" type="button">
-                    <img src="assets/images/landing.svg" alt="something">
-                </button>
-                <button type="button">
-                    <img src="assets/images/map-marker.svg" alt="something">
+                <button *ngFor="let image of orphanageImages; index as index; trackBy:currentImage" [class.active]="activeImageIndex == index" type="button">
+                    <img src="{{ image.url }}" alt="{{ orphanage.name }}" (click)="activeImageIndex = index">
                 </button>
             </div>
 
             <div class="orphanage-details-content">
-                <h1>Orfanato Gentil é Deus!</h1>
-                <p>Orfanato do Todo Poderoso Gentil!</p>
+                <h1>{{ orphanage.name }}</h1>
+                <p>{{ orphanage.about }}</p>
 
                 <div class="map-container">
-                    <div class="map" leaflet [leafletOptions]="options"></div>
+                    <div class="map" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)"></div>
 
                     <footer>
-                        <a target="_blank" rel="noopener noreferrer" href="#">Ver rotas no google maps</a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination={{orphanage.latitude}},{{orphanage.longitude}}">Ver
+                            rotas no google maps</a>
                     </footer>
                 </div>
 
                 <hr>
 
                 <h2>Instruções para visita</h2>
-                <p>Vem pela sombra!</p>
+                <p>{{ orphanage.instructions }}</p>
 
                 <div class="open-details">
                     <div class="hour">
-                        <mat-icon style="size: 32;color: #15B6D6;">
-                            clock
+                        <mat-icon style="font-size: 32px;color: #15B6D6;">
+                            alarm
                         </mat-icon> Segunda à Sexta <br> 18h ás 19h
                     </div>
 
-                    <div class="hour">
-                        <mat-icon style="size: 32;color: #39CC83;">
-                            info
-                        </mat-icon> Atendemos <br> aos finais de semana
+                    <div *ngIf="orphanage.open_on_weekends; then onweekend else notonweekend;">
+
                     </div>
+                    <ng-template #onweekend>
+                        <div class="hour open-on-weekends">
+                            <mat-icon style="size: 32;color: #39CC83;">
+                                info
+                            </mat-icon> Atendemos <br> aos finais de semana
+                        </div>
+                    </ng-template>
+                    <ng-template #notonweekend>
+                        <div class="hour open-on-weekends dont-open-on-weekends">
+                            <mat-icon style="size: 32;color: #FF669D;">
+                                info
+                            </mat-icon> Não atendemos <br> aos finais de semana
+                        </div>
+                    </ng-template>
+
                 </div>
 
-                <button type="button" class="contact-button">
+                <!-- <button type="button" class="contact-button">
                     <mat-icon style="size: 32;color: #FFF;">
-                        whatsapp
+                        phone
                     </mat-icon> Entrar em contacto
-                </button>
+                </button> -->
             </div>
         </div>
     </main>

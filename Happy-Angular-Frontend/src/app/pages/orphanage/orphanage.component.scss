@@ -93,14 +93,19 @@
                         padding: 32px 24px;
                         border-radius: 20px;
                         line-height: 28px;
-                        svg {
+                        mat-icon {
                             display: block;
                             margin-top: 20px;
+                            margin-bottom: 5px;
                         }
                         &.hour {
                             background: linear-gradient(149.97deg, #E6F7FB 8.13%, #FFFFFF 92.67%);
                             border: 1px solid #A1E9C5;
                             color: #37C77F;
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
                         }
                         &.open-on-weekends {
                             background: linear-gradient(154.16deg, #EDFFF6 7.85%, #FFFFFF 91.03%);
@@ -129,7 +134,7 @@
                         justify-content: center;
                         align-items: center;
                         transition: background-color 0.2s;
-                        svg {
+                        mat-icon {
                             margin-right: 16px;
                         }
                         &:hover {

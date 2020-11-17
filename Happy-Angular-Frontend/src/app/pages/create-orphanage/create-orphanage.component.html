@@ -2,14 +2,15 @@
     <app-sidebar></app-sidebar>
 
     <main>
-        <form class="create-orphanage-form">
+        <form #createOrphanageForm="ngForm" (ngSubmit)="submit(createOrphanageForm)" class="create-orphanage-form">
             <fieldset>
                 <legend>Dados</legend>
 
-                <div class="map" leaflet [leafletOptions]="options"></div>
+                <div class="map" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)"></div>
+
                 <div class="input-block">
                     <label for="name">Nome</label>
-                    <input type="text" id="name">
+                    <input type="text" name="name" id="name" autocomplete="off">
                 </div>
                 <div class="input-block">
                     <label for="about">Sobre <span>Máximo de 300 caracteres</span></label>
@@ -18,14 +19,16 @@
                 <div class="input-block">
                     <label for="images">Fotos</label>
                     <div class="images-container">
-                        <img src="assets/images/map-marker.svg" style="display: none;">
+                        <div *ngFor="let image of previewImages">
+                            <img [src]="image">
+                        </div>
                         <label for="image[]" class="new-image">
                             <mat-icon>
                                 add
                             </mat-icon>
                         </label>
                     </div>
-                    <input type="file" multiple id="image[]">
+                    <input type="file" accept="image/*" (change)="handleSelectImages($event)" multiple id="image[]">
                 </div>
             </fieldset>
 
