@@ -61,7 +61,7 @@ class Api::V1::OrphanagesController < ApplicationController
 
     private
         def orphanage_params
-            params.permit(:name, :about, :latitude, :longitude, :instructions, :opening_hours, :open_on_weekends, {images: []})
+            params.require(:orphanage).permit(:name, :about, :latitude, :longitude, :instructions, :opening_hours, :open_on_weekends, {images: []})
         end
 
         def set_orphanage
