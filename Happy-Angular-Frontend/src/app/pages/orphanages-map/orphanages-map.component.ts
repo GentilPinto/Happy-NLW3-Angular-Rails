@@ -1,102 +1,65 @@
-import { Component, OnInit } from '@angular/core';
 import {
-    latLng,
-    tileLayer,
-    marker,
-    icon,
-    popup as LeafletPopup
-} from 'leaflet';
+    OnInit,
+    Component,
+    OnDestroy,
+} from '@angular/core';
+
+import { Subject } from 'rxjs';
 import * as Leaflet from 'leaflet';
+import { takeUntil } from 'rxjs/operators';
+import { MarkerIcon } from '../../shared/marker-icon';
 import { Orphanage } from '../../interfaces/orphanage.interface';
+import { INIT_COORDS } from '../../shared/initial-coordinates';
+import { OprhanageService } from '../../services/oprhanage.service';
+
 
 @Component({
     selector: 'app-orphanages-map',
     templateUrl: './orphanages-map.component.html',
     styleUrls: ['./orphanages-map.component.scss']
 })
-export class OrphanagesMapComponent implements OnInit {
+export class OrphanagesMapComponent implements OnInit, OnDestroy {
 
-    private _orphanages: Array<Orphanage> = [
-        {
-            id: 1,
-            name: 'Lar Kuzola',
-            latitude: -8.9179403,
-            longitude: 13.200951799999999,
-            about: 'Orphanato Lar Kuzola',
-            instructions: 'Venha nos visitar!',
-            opening_hours: '18h as 20h',
-            open_on_weekends: true,
-            images: [
-                {
-                    id: 1,
-                    url: 'assets/images/landing.svg'
-                },
-                {
-                    id: 2,
-                    url: 'assets/images/map-marker.svg'
-                },
-            ]
-        },
-        {
-            id: 2,
-            name: 'Lar Kuzola2',
-            latitude: -8.916929,
-            longitude: 13.200882,
-            about: 'Orphanato Lar Kuzola 2',
-            instructions: 'Venha nos visitar!',
-            opening_hours: '7h as 23h',
-            open_on_weekends: false,
-            images: [
-                {
-                    id: 1,
-                    url: 'assets/images/map-marker.svg'
-                },
-                {
-                    id: 2,
-                    url: 'assets/images/landing.svg'
-                },
-            ]
-        }
-    ];
+    private _map = null;
+    private _orphanages: Orphanage[] = [];
+    private _destroy$: Subject<boolean> = new Subject<boolean>();
 
-    private _homeCoords = {
-        latitude: -8.9179403,
-        longitude: 13.200951799999999
-    };
-
-    private _map: Leaflet.Map;
-
-    private _options = {
-        layers: [
-            tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '' })
-        ],
-        zoom: 15,
-        center: latLng(this._homeCoords.latitude, this._homeCoords.longitude)
-    };
-
-    private _markerIcon = {
-        icon: Leaflet.icon({
-            iconUrl: 'assets/images/map-marker.svg',
-            iconSize: [58, 68],
-            iconAnchor: [29, 68],
-            popupAnchor: [0, -60]
-        })
-    };
-
-    constructor() { }
+    constructor(
+        private _orphanageService: OprhanageService
+    ) { }
 
     ngOnInit(): void {
-        localStorage.setItem('happy-orphanages', JSON.stringify(this._orphanages));
+        this._orphanageService.getAllOrphanages()
+            .pipe(takeUntil(this._destroy$))
+            .subscribe((orphanage: Orphanage[]) => {
+                this._orphanages = orphanage;
+                this.initMap();
+                this.initMarkers();
+            });
     }
 
-    public get options(): any {
-        return this._options;
+    ngOnDestroy(): void {
+        this._destroy$.next(true);
+        this._destroy$.unsubscribe();
     }
 
-    public initMarkers(): void {
-        this._orphanages.map(orphanage => {
-            console.log(orphanage);
-            const popup = LeafletPopup({
+    private initMap(): void {
+        this._map = Leaflet.map('map', {
+            center: [INIT_COORDS.latitude, INIT_COORDS.longitude],
+            zoom: 11,
+        });
+
+        const tiles = Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: ''
+        });
+
+        tiles.addTo(this._map);
+    }
+
+    private initMarkers(): void {
+        this._orphanages.map((orphanage: Orphanage) => {
+            const popup = Leaflet.popup({
                 closeButton: false,
                 maxWidth: 240,
                 minWidth: 240,
@@ -110,41 +73,10 @@ export class OrphanagesMapComponent implements OnInit {
                     </a>
                 `
             );
-            Leaflet.marker([orphanage.latitude, orphanage.longitude], this._markerIcon)
+
+            Leaflet.marker([orphanage.latitude, orphanage.longitude], MarkerIcon)
                 .addTo(this._map)
                 .bindPopup(popup);
         });
     }
-
-    public onMapReady(map: Leaflet.Map): void {
-        this._map = map;
-        this.initMarkers();
-    }
-
-    //     public async onMapReady(map: Leaflet.Map): Promise < void> {
-    //     await this.getMyCurrentPosition().then((result) => {
-    //         this._myCurrentPosition.latitude = result.coords.latitude;
-    //         this._myCurrentPosition.longitude = result.coords.longitude;
-    //     });
-    //     this._map = map.panTo(
-    //         new Leaflet.LatLng(
-    //             this._myCurrentPosition.latitude,
-    //             this._myCurrentPosition.longitude
-    //         )
-    //     );
-    // }
-
-    // public getMyCurrentPosition(): Promise < any > {
-    //     return new Promise((resolve, reject) => {
-    //         navigator.geolocation.getCurrentPosition(
-    //             (result) => {
-    //                 resolve(result);
-    //             },
-    //             (error) => {
-    //                 console.log('Error: ', error);
-    //                 reject(error);
-    //             }
-    //         );
-    //     });
-    // }
 }

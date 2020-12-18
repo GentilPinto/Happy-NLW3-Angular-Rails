@@ -1,4 +1,3 @@
-json.message "Todos os orfanatos"
 json.orphanages(@orphanages) do |orphanage|
     json.id orphanage.id
     json.name orphanage.name

@@ -1,6 +1,5 @@
 import {
     OnInit,
-    OnDestroy,
     Component
 } from '@angular/core';
 import {
@@ -24,7 +23,7 @@ import { Title } from '@angular/platform-browser';
         slideInAnimation
     ]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
     constructor(
         private _router: Router,
         private _titleService: Title,
@@ -43,10 +42,6 @@ export class AppComponent implements OnInit, OnDestroy {
             ).subscribe((title: string) => {
                 this._titleService.setTitle(title);
             });
-    }
-
-    ngOnDestroy(): void {
-        localStorage.removeItem('happy-orphanages');
     }
 
     public prepareRoute(outlet: RouterOutlet): void {
