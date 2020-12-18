@@ -34,6 +34,6 @@ Esse projeto foi desenvolvido utilizando as seguintes tecnologias:
 - [Ruby on Rails](https://rubyonrails.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 
-## 📝 Licença
+## :scroll: Licença
 
 Esse projeto está sob a licença MIT. Leia o arquivo [LICENSE](LICENSE.md) para mais detalhes.
